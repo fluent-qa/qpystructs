@@ -1,6 +1,5 @@
 import qpystructs
 from data_constants import more_dict, more_json_dict
-from qpystructs import operations
 
 
 def test_get_value_by_expression():
@@ -22,6 +21,7 @@ def test_set_value_by_express_json():
     result = qpystructs.set_value(more_json_dict, "characters.Lonestar", {})
     result = qpystructs.get_value(result, "characters.Lonestar")
     assert result == {}
+
 
 def test_differ():
     result = qpystructs.differ(more_dict, more_json_dict)

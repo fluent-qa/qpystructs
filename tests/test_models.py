@@ -1,6 +1,7 @@
 from model_for_test import DemoModel, DemoModelAlias, DemoUnit, UnitInfo
 from qpystructs import models, operations
 from qpystructs.operations import DataFormatType
+import qpystructs as sr
 
 
 def test_modelize_camel_naming():
@@ -18,10 +19,10 @@ def test_modelize_alias_naming():
 def test_parse_as():
     result = DemoModelAlias.parse_file("./structured-data/camel-alias.json")
     json_str = result.model_dump_json(by_alias=True)
-    obj_model = models.parse_as(json_str, DemoModelAlias)
+    obj_model = sr.parse_as(json_str, DemoModelAlias)
     dict_obj = result.to_dict(by_alias=True)
     print(obj_model)
-    dict_model = models.parse_as(dict_obj, DemoModelAlias)
+    dict_model = sr.parse_as(dict_obj, DemoModelAlias)
     assert dict_model.key == "v1"
 
 
