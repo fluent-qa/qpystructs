@@ -1,6 +1,6 @@
 .coverage
 .pytest_cache
-.venv
+.venv/
 *.pyc
 # Packages
 *.egg
@@ -14,7 +14,6 @@ _build
 .pdm-python
 # Installer logs
 pip-log.txt
-
 # Unit test / coverage reports
 .coverage
 .tox
