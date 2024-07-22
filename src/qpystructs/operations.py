@@ -112,13 +112,14 @@ def parse_file_as(file_path: Path | str, to_type: T, data_format=DataFormatType.
 
 
 def get_value(target_object: str | dict | BaseModel | GenericDataModel, path_exp: str,
-              ) -> Any:
+              **kwargs) -> Any:
     if isinstance(target_object, Dict):
         return jmespath.search(expression=path_exp, data=target_object)
     if isinstance(target_object, str):
         return jmespath.search(data=json.loads(target_object), expression=path_exp)
     if isinstance(target_object, BaseModel):
         return jmespath.search(data=target_object.dict(), expression=path_exp)
+
     raise NotImplementedError("not support type " + type(target_object))
 
 

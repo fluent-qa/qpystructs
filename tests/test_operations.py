@@ -27,3 +27,12 @@ def test_differ():
     result = qpystructs.differ(more_dict, more_json_dict)
     print(result)
     assert len(result) > 1
+
+
+def test_query_expression():
+    query = "locations[?state == 'WA'].name | sort(@) | {WashingtonCities: join(', ', @)}"
+    result = qpystructs.load_from_file("./structured-data/query-data.json")
+    query_result = qpystructs.get_value(result, query)
+    assert query_result == {
+        "WashingtonCities": "Bellevue, Olympia, Seattle"
+    }
