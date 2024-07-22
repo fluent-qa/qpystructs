@@ -1,4 +1,4 @@
-from model_for_test import DemoModel, DemoModelAlias, DemoUnit, UnitInfo
+from model_for_test import DemoModel, DemoModelAlias, DemoUnit, UnitInfo, UnitInfoRawModel
 from qpystructs import models, operations
 from qpystructs.operations import DataFormatType
 import qpystructs as sr
@@ -30,10 +30,29 @@ def test_parse_file_as():
     result = operations.parse_file_as("./structured-data/camel-alias.json", DemoModelAlias)
     assert result.k_index == 4.3
 
+
 def test_load_csv_files():
-    result = operations.parse_file_as("./structured-data/unit.csv",DemoUnit,data_format=DataFormatType.CSV)
+    result = operations.parse_file_as("./structured-data/unit.csv", DemoUnit, data_format=DataFormatType.CSV)
     print(result)
 
+
 def test_load_excel_file():
-    result = operations.parse_file_as("./structured-data/unit_demo.xlsx",UnitInfo,data_format=DataFormatType.EXCEL)
+    result = operations.parse_file_as("./structured-data/unit_demo.xlsx", UnitInfo, data_format=DataFormatType.EXCEL)
     print(result)
+
+
+def test_load_excel_file_raw():
+    result = operations.parse_file_as("./structured-data/unit_demo.xlsx", UnitInfoRawModel,
+                                      data_format=DataFormatType.EXCEL)
+    print(result)
+
+
+import pandas as pd
+
+
+def test_load_excel_file_raw_code():
+    df = pd.read_excel("./structured-data/unit_demo.xlsx", na_filter=False, na_values=['NaN'])
+    t_list = []
+    for index, row in df.iterrows():
+        t_list.append(UnitInfoRawModel(**row.to_dict()))
+    print(t_list)
