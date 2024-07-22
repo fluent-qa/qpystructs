@@ -2,8 +2,9 @@ from __future__ import annotations
 
 from typing import Any, Annotated
 
-from qpystructs.models import GenericDataModel
 from pydantic import BaseModel, Field,ConfigDict
+
+from qpystructs import GenericDataModel
 
 
 #

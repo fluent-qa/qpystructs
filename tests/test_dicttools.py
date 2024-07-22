@@ -1,4 +1,4 @@
-from data_constants import more_dict
+from tests.helper.data_constants import more_dict
 from qpystructs import dicttools
 
 

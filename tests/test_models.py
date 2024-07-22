@@ -1,5 +1,5 @@
-from model_for_test import DemoModel, DemoModelAlias, DemoUnit, UnitInfo, UnitInfoRawModel
-from qpystructs import models, operations
+from tests.helper.demo_models import *
+from qpystructs import operations
 from qpystructs.operations import DataFormatType
 import qpystructs as sr
 
