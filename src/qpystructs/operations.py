@@ -15,7 +15,7 @@ from pydantic import BaseModel
 import pandas as pd
 from deepdiff import DeepDiff
 
-from qpystructs.dotty import dotty
+from .dotty import dotty
 
 
 class DataFormatType(enum.Enum):
@@ -157,3 +157,21 @@ def differ(expected_data: Union[str, dict], actual_data: Union[str, dict]):
     else:
         v2 = actual_data
     return extract_obj_diff(DeepDiff(v1, v2, verbose_level=2))
+
+
+def json_file_to_excel(json_file, excel_file):
+    """
+    json file to excel
+    """
+    json_data = load_from_file(json_file)
+    json_data_df = pd.json_normalize(json_data)
+    json_data_df.to_excel(excel_file)
+
+
+def read_merged_excel(excel_path):
+    """
+    read merged cell excel file
+    """
+    raw_df = pd.read_excel(excel_path)
+    raw_df.fillna("fillna", inplace=True)
+    return raw_df

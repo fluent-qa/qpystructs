@@ -1,7 +1,6 @@
 [project]
 authors = [
     { name = "fluentqa-team", email = "fluent-qa@fluentqa.com" },
-    {name = "fluent", email = "fluentqa@fluentqa.com"},
 ]
 classifiers = [
     "Development Status :: 3 - Alpha",
@@ -96,16 +95,16 @@ src = ["src"]
 
 [tool.ruff.lint]
 select = [
-    "B",      # flake8-bugbear
-    "D",      # pydocstyle
-    "E",      # pycodestyle error
-    "F",      # Pyflakes
-    "I",      # isort
+    "B", # flake8-bugbear
+    "D", # pydocstyle
+    "E", # pycodestyle error
+    "F", # Pyflakes
+    "I", # isort
     "RUF100", # Unused noqa directive
-    "S",      # flake8-bandit
-    "SIM",    # flake8-simplify
-    "UP",     # pyupgrade
-    "W",      # pycodestyle warning
+    "S", # flake8-bandit
+    "SIM", # flake8-simplify
+    "UP", # pyupgrade
+    "W", # pycodestyle warning
 ]
 
 [tool.ruff.lint.per-file-ignores]
@@ -121,3 +120,6 @@ all = true
 in_place = true
 trailing_comma_inline_array = true
 
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"

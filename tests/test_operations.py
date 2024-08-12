@@ -1,5 +1,7 @@
+import pandas as pd
+
+from qpystructs.operations import *
 from tests.helper.data_constants import *
-from qpystructs import get_value, set_value, differ, load_from_file
 
 
 def test_get_value_by_expression():
@@ -36,3 +38,44 @@ def test_query_expression():
     assert query_result == {
         "WashingtonCities": "Bellevue, Olympia, Seattle"
     }
+
+
+def test_flat_json():
+    data = [
+        {
+            "state": "Florida",
+            "shortname": "FL",
+            "info": {"governor": "Rick Scott"},
+            "counties": [
+                {"name": "Dade", "population": 12345},
+                {"name": "Broward", "population": 40000},
+                {"name": "Palm Beach", "population": 60000},
+            ],
+        },
+        {
+            "state": "Ohio",
+            "shortname": "OH",
+            "info": {"governor": "John Kasich"},
+            "counties": [
+                {"name": "Summit", "population": 1234},
+                {"name": "Cuyahoga", "population": 1337},
+            ],
+        }]
+    result = pd.json_normalize(
+        data, "counties", ["state", "shortname", ["info", "governor"]]
+    )
+    print(result)
+    result.to_excel("json-flat.xlsx")
+
+    json_data = load_from_file("tmp.json")
+    print(json_data)
+    result_json_np = pd.json_normalize(json_data,)
+    formula_data = json_data['formula']
+    pd_formula_data = pd.json_normalize(formula_data,'formulaSlots')
+    pd_formula_data.to_excel('emission-json.xlsx')
+
+
+def test_merged_cell():
+    json_file_to_excel("tmp.json",'tmp-json.xlsx')
+    result = read_merged_excel("merged_cell.xlsx")
+    print(result)
