@@ -66,16 +66,11 @@ def test_flat_json():
     )
     print(result)
     result.to_excel("json-flat.xlsx")
-
     json_data = load_from_file("tmp.json")
     print(json_data)
-    result_json_np = pd.json_normalize(json_data,)
-    formula_data = json_data['formula']
-    pd_formula_data = pd.json_normalize(formula_data,'formulaSlots')
-    pd_formula_data.to_excel('emission-json.xlsx')
 
 
 def test_merged_cell():
-    json_file_to_excel("tmp.json",'tmp-json.xlsx')
+    json_file_to_excel("tmp.json", 'tmp-json.xlsx')
     result = read_merged_excel("merged_cell.xlsx")
     print(result)
