@@ -9,8 +9,7 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
 ]
-description = "A Python boilet template for different types of projects."
-dynamic = ["version"]
+description = "A Python Structure Handling Projects"
 keywords = [
     "copier-template",
     "full-development-lifecycle",
