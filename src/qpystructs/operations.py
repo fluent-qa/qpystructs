@@ -159,12 +159,12 @@ def differ(expected_data: Union[str, dict], actual_data: Union[str, dict]):
     return extract_obj_diff(DeepDiff(v1, v2, verbose_level=2))
 
 
-def json_file_to_excel(json_file, excel_file):
+def json_file_to_excel(json_file, excel_file,record_path=None):
     """
     json file to excel
     """
     json_data = load_from_file(json_file)
-    json_data_df = pd.json_normalize(json_data)
+    json_data_df = pd.json_normalize(json_data,record_path=record_path)
     json_data_df.to_excel(excel_file)
 
 

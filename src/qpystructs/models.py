@@ -33,7 +33,7 @@ class CamelModel(BaseModel):
         return self.model_dump_json(by_alias=by_alias, exclude_none=True)
 
     def to_dict(self, by_alias=True):
-        return self.dict(by_alias=by_alias, exclude_none=True)
+        return self.model_dump(by_alias=by_alias, exclude_none=True)
 
 
 class GenericDataModel(CamelModel, BaseModel):
