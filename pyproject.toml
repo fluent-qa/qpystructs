@@ -1,7 +1,5 @@
 [project]
-authors = [
-    { name = "fluentqa-team", email = "fluent-qa@fluentqa.com" },
-]
+authors = [{ name = "fluentqa-team", email = "fluent-qa@fluentqa.com" }]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "License :: OSI Approved :: MIT License",
@@ -19,7 +17,7 @@ keywords = [
 version = "0.0.1"
 name = "qpystructs"
 readme = "README.md"
-requires-python = "==3.12.*"
+requires-python = ">=3.10"
 dependencies = [
     "pandas>=2.2.2",
     "pydantic>=2.8.2",
@@ -50,10 +48,7 @@ cleanup = "sh scripts/cleanup.sh"
 [tool.pdm.dev-dependencies]
 docs = ["mkdocs-material>=9.5.27", "mkdocs>=1.6.0"]
 lint = ["ruff>=0.4.9"]
-test = [
-    "pytest-cov>=5.0.0",
-    "pytest>=8.2.2",
-]
+test = ["pytest-cov>=5.0.0", "pytest>=8.2.2"]
 
 
 [[tool.pdm.source]]
@@ -91,16 +86,16 @@ src = ["src"]
 
 [tool.ruff.lint]
 select = [
-    "B", # flake8-bugbear
-    "D", # pydocstyle
-    "E", # pycodestyle error
-    "F", # Pyflakes
-    "I", # isort
+    "B",      # flake8-bugbear
+    "D",      # pydocstyle
+    "E",      # pycodestyle error
+    "F",      # Pyflakes
+    "I",      # isort
     "RUF100", # Unused noqa directive
-    "S", # flake8-bandit
-    "SIM", # flake8-simplify
-    "UP", # pyupgrade
-    "W", # pycodestyle warning
+    "S",      # flake8-bandit
+    "SIM",    # flake8-simplify
+    "UP",     # pyupgrade
+    "W",      # pycodestyle warning
 ]
 
 [tool.ruff.lint.per-file-ignores]
@@ -108,7 +103,6 @@ select = [
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"
-
 
 
 [tool.tomlsort]
