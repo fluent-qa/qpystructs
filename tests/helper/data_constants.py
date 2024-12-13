@@ -26,22 +26,22 @@ more_json_dict = """
 """
 
 more_dict = {
-    "characters": {
-        "Lonestar": {
-            "id": 55923,
-            "role": "renegade",
-            "items": ["space winnebago", "leather jacket"],
+    'characters': {
+        'Lonestar': {
+            'id': 55923,
+            'role': 'renegade',
+            'items': ['space winnebago', 'leather jacket'],
         },
-        "Barfolomew": {
-            "id": 55924,
-            "role": "mawg",
-            "items": ["peanut butter jar", "waggy tail"],
+        'Barfolomew': {
+            'id': 55924,
+            'role': 'mawg',
+            'items': ['peanut butter jar', 'waggy tail'],
         },
-        "Dark Helmet": {
-            "id": 99999,
-            "role": "Good is dumb",
-            "items": ["Shwartz", "helmet"],
+        'Dark Helmet': {
+            'id': 99999,
+            'role': 'Good is dumb',
+            'items': ['Shwartz', 'helmet'],
         },
-        "Skroob": {"id": 12345, "role": "Spaceballs CEO", "items": ["luggage"]},
-    }, "another": "key", "other": "value"
+        'Skroob': {'id': 12345, 'role': 'Spaceballs CEO', 'items': ['luggage']},
+    }, 'another': 'key', 'other': 'value'
 }

@@ -5,23 +5,23 @@ from tests.helper.data_constants import *
 
 
 def test_get_value_by_expression():
-    result = get_value(more_dict, "characters.Lonestar")
+    result = get_value(more_dict, 'characters.Lonestar')
     assert result == {
-        "id": 55923,
-        "role": "renegade",
-        "items": ["space winnebago", "leather jacket"],
+        'id': 55923,
+        'role': 'renegade',
+        'items': ['space winnebago', 'leather jacket'],
     }
 
 
 def test_set_value_by_express():
-    new_dict = set_value(more_dict, "characters.Lonestar", {})
-    result = get_value(new_dict, "characters.Lonestar")
+    new_dict = set_value(more_dict, 'characters.Lonestar', {})
+    result = get_value(new_dict, 'characters.Lonestar')
     assert result == {}
 
 
 def test_set_value_by_express_json():
-    result = set_value(more_json_dict, "characters.Lonestar", {})
-    result = get_value(result, "characters.Lonestar")
+    result = set_value(more_json_dict, 'characters.Lonestar', {})
+    result = get_value(result, 'characters.Lonestar')
     assert result == {}
 
 
@@ -33,46 +33,46 @@ def test_differ():
 
 def test_query_expression():
     query = "locations[?state == 'WA'].name | sort(@) | {WashingtonCities: join(', ', @)}"
-    result = load_from_file("./structured-data/query-data.json")
+    result = load_from_file('./structured-data/query-data.json')
     query_result = get_value(result, query)
     assert query_result == {
-        "WashingtonCities": "Bellevue, Olympia, Seattle"
+        'WashingtonCities': 'Bellevue, Olympia, Seattle'
     }
 
 
 def test_flat_json():
     data = [
         {
-            "state": "Florida",
-            "shortname": "FL",
-            "info": {"governor": "Rick Scott"},
-            "counties": [
-                {"name": "Dade", "population": 12345},
-                {"name": "Broward", "population": 40000},
-                {"name": "Palm Beach", "population": 60000},
+            'state': 'Florida',
+            'shortname': 'FL',
+            'info': {'governor': 'Rick Scott'},
+            'counties': [
+                {'name': 'Dade', 'population': 12345},
+                {'name': 'Broward', 'population': 40000},
+                {'name': 'Palm Beach', 'population': 60000},
             ],
         },
         {
-            "state": "Ohio",
-            "shortname": "OH",
-            "info": {"governor": "John Kasich"},
-            "counties": [
-                {"name": "Summit", "population": 1234},
-                {"name": "Cuyahoga", "population": 1337},
+            'state': 'Ohio',
+            'shortname': 'OH',
+            'info': {'governor': 'John Kasich'},
+            'counties': [
+                {'name': 'Summit', 'population': 1234},
+                {'name': 'Cuyahoga', 'population': 1337},
             ],
         }]
     result = pd.json_normalize(
-        data, "counties", ["state", "shortname", ["info", "governor"]]
+        data, 'counties', ['state', 'shortname', ['info', 'governor']]
     )
     print(result)
-    result.to_excel("json-flat.xlsx")
-    json_data = load_from_file("tmp.json")
+    result.to_excel('json-flat.xlsx')
+    json_data = load_from_file('tmp.json')
     print(json_data)
 
 
 def test_merged_cell():
-    json_file_to_excel("tmp.json", 'tmp-json.xlsx')
-    result = read_merged_excel("merged_cell.xlsx")
+    json_file_to_excel('tmp.json', 'tmp-json.xlsx')
+    result = read_merged_excel('merged_cell.xlsx')
     print(result)
 
 # def test_json_to_excel():

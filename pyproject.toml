@@ -1,115 +1,120 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+
 [project]
-authors = [{ name = "fluentqa-team", email = "fluent-qa@fluentqa.com" }]
-classifiers = [
-    "Development Status :: 3 - Alpha",
-    "License :: OSI Approved :: MIT License",
-    "Operating System :: OS Independent",
-    "Programming Language :: Python :: 3.11",
-    "Programming Language :: Python :: 3.12",
-]
-description = "A Python Structure Handling Projects"
-keywords = [
-    "copier-template",
-    "full-development-lifecycle",
-    "project-template",
-    "scaffold",
-]
-version = "0.0.1"
 name = "qpystructs"
+version = "0.1.0"
+description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.12"
 dependencies = [
-    "pandas>=2.2.2",
-    "pydantic>=2.8.2",
+    "deepdiff>=8.0.1",
     "inflection>=0.5.1",
-    "openpyxl>=3.1.5",
     "jmespath>=1.0.1",
-    "pyyaml>=6.0.1",
-    "DeepDiff>=7.0.1",
+    "openpyxl>=3.1.5",
+    "pandas>=2.2.3",
+    "pydantic>=2.10.3",
+    "pyyaml>=6.0.2",
 ]
+
+
 
 [project.urls]
 issue = "https://github.com/fluent-qa/qpystructs/issues"
 repository = "https://github.com/fluent-qa/qpystructs"
 
 
-[tool]
-[tool.pdm]
-distribution = false
-[tool.pdm.scripts]
-# ss-python-cli = "ss_python.cli:app"
-lint = "ruff ."
-fmt = "ruff format . --check"
-test = "pytest "
-docs = "mkdocs serve"
-docs-deploy = "mkdocs gh-deploy --force"
-cleanup = "sh scripts/cleanup.sh"
+[project.scripts]
+cleanup = "qpyci.commands:clean"
+cov = "ci:coverage"
+badge = "qpyci.commands:generate_badge"
+check_format = "ci:check_format"
 
-[tool.pdm.dev-dependencies]
-docs = ["mkdocs-material>=9.5.27", "mkdocs>=1.6.0"]
-lint = ["ruff>=0.4.9"]
-test = ["pytest-cov>=5.0.0", "pytest>=8.2.2"]
+[tool.hatch.build.targets.wheel.force-include]
+"ci.py" = "ci.py"
 
 
-[[tool.pdm.source]]
-name = "mirrors"
-url = "https://pypi.tuna.tsinghua.edu.cn/simple/"
 
-[[tool.pdm.source]]
-name = "douban"
-url = "https://pypi.doubanio.com/simple/"
+[tool.uv]
+default-groups = ["dev"]
+
+
+[tool.uv.sources]
+qpyci = { git = "https://github.com/fluent-qa/qpyci.git", rev = "main" }
+
+[tool.hatch.build.targets.wheel]
+packages = ["qpystructs"]
+
+
+[dependency-groups]
+lint = [
+    "ruff>=0.8.3",
+]
+dev = [
+    "allure-pytest>=2.13.5",
+    "pytest-cov>=6.0.0",
+    "pytest>=8.3.4",
+    "coverage-badge>=1.1.2",
+    "qpyci",
+]
+
+[tool.ruff]
+line-length = 120
+target-version = "py39"
+include = [
+    "qpyconf/**/*.py",
+    "tests/**/*.py",
+    "docs/**/*.py",
+]
+
+[tool.ruff.lint]
+extend-select = [
+    "Q",
+    "RUF100",
+    "C90",
+    "UP",
+    "I",
+    "D",
+]
+flake8-quotes = { inline-quotes = "single", multiline-quotes = "double" }
+isort = { combine-as-imports = true, known-first-party = ["qpyconf"] }
+mccabe = { max-complexity = 15 }
+ignore = [
+    "D100", # ignore missing docstring in module
+    "D102", # ignore missing docstring in public method
+    "D104", # ignore missing docstring in public package
+    "D105", # ignore missing docstring in magic methods
+    "D107", # ignore missing docstring in __init__ methods
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.format]
+# don't format python in docstrings, pytest-examples takes care of it
+docstring-code-format = false
+quote-style = "single"
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = ["D"]
+"docs/**/*.py" = ["D"]
+"src/qpystructs/**/*.py" = ["D101", "D103"]
+
 
 [tool.pytest.ini_options]
-addopts = "-l -s --durations=0"
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = [
+    "--alluredir", "allure-results",
+    "--clean-alluredir",
+    "-l", "-s", "--durations", "0",
+    "--cov", "qpystructs"
+]
 log_cli = true
 log_cli_level = "info"
 log_date_format = "%Y-%m-%d %H:%M:%S"
 log_format = "%(asctime)s %(levelname)s %(message)s"
 minversion = "6.0"
-cov = "qpystructs"
-cov-report = "html"
 
-
-[tool.coverage]
-
-[tool.coverage.report]
-fail_under = 100
-
-[tool.coverage.run]
-source = ["src/qpystructs"]
-
-
-[tool.ruff]
-extend-exclude = ["template"]
-fix = true
-src = ["src"]
-
-[tool.ruff.lint]
-select = [
-    "B",      # flake8-bugbear
-    "D",      # pydocstyle
-    "E",      # pycodestyle error
-    "F",      # Pyflakes
-    "I",      # isort
-    "RUF100", # Unused noqa directive
-    "S",      # flake8-bandit
-    "SIM",    # flake8-simplify
-    "UP",     # pyupgrade
-    "W",      # pycodestyle warning
-]
-
-[tool.ruff.lint.per-file-ignores]
-"tests/*" = ["S101"]
-
-[tool.ruff.lint.pydocstyle]
-convention = "google"
-
-
-[tool.tomlsort]
-all = true
-in_place = true
-trailing_comma_inline_array = true
-
-[build-system]
-requires = ["pdm-backend"]
-build-backend = "pdm.backend"
